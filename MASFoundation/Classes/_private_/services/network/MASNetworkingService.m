@@ -733,7 +733,7 @@ static NSMutableArray *_multiFactorAuthenticators_;
             //
             //  Going into MFA flow if the target API's endpoint is not one of MAG/OTK's system endpoints, and the original request failed.
             //
-            else if (![blockSelf isMAGEndpoint:blockEndPoint] && error != nil)
+            else if ((![blockSelf isMAGEndpoint:blockEndPoint] && error != nil) || [magErrorCode hasPrefix:@"700"])
             {
                 MASMultiFactorHandler *handler = nil;
                 MASRequest *originalRequest = nil;

@@ -32,7 +32,7 @@
         //
         //  140, 142, 143, 144, and 145 are x-car-err codes from MAG OTP
         //
-        if (magErrorCode && ([magErrorCode hasSuffix:@"140"] || [magErrorCode hasSuffix:@"142"] || [magErrorCode hasSuffix:@"143"] || [magErrorCode hasSuffix:@"144"] || [magErrorCode hasSuffix:@"145"]))
+        if (magErrorCode && ([magErrorCode hasSuffix:@"140"] || [magErrorCode hasSuffix:@"142"] || [magErrorCode hasSuffix:@"143"] || [magErrorCode hasSuffix:@"144"] || [magErrorCode hasSuffix:@"145"] || [magErrorCode hasPrefix:@"7004789"]))
         {
             MASMultiFactorHandler *handler = [[MASMultiFactorHandler alloc] initWithRequest:request];
             return handler;
@@ -49,7 +49,11 @@
     //  Validate OTP with OTP service
     //
     __block MASMultiFactorHandler *blockHandler = handler;
-    [[MASOTPService sharedService] validateOTPSessionWithResponseHeaders:[response allHeaderFields] completionBlock:^(NSDictionary *responseInfo, NSError *error) {
+   NSMutableDictionary *otpHeaders = [NSMutableDictionary dictionary];
+    [otpHeaders setObject:@"Test Risk" forKey:@"X-CA-RAS-RiskDetails"];
+    [blockHandler proceedWithHeaders:otpHeaders];
+    
+    /*[[MASOTPService sharedService] validateOTPSessionWithResponseHeaders:[response allHeaderFields] completionBlock:^(NSDictionary *responseInfo, NSError *error) {
          
         NSString *oneTimePassword = [responseInfo objectForKey:MASHeaderOTPKey];
         NSArray *otpChannels = [responseInfo objectForKey:MASHeaderOTPChannelKey];
@@ -74,7 +78,7 @@
             
             [blockHandler proceedWithHeaders:otpHeaders];
         }
-     }];
+     }];*/
 }
 
 @end
