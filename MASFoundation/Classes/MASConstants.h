@@ -273,7 +273,7 @@ typedef NS_ENUM(NSInteger, MASRequestResponseType)
  *  The enumerated MASState that can indicate what state of SDK currently is at.
  */
 typedef NS_ENUM(NSInteger, MASState) {
-    
+
     /**
      *  State that SDK has not been initialized and does not have configuration file 
      *  either in local file system based on the default configuration file name, nor in the keychain storage.
@@ -307,6 +307,22 @@ typedef NS_ENUM(NSInteger, MASState) {
      *  State that SDK is being forced to stop.
      */
     MASStateIsBeingStopped
+};
+
+
+/**
+ *  The enumerated MASBrowserBasedAuthenticationTypes that can be used to initiate a browser based login
+ */
+typedef NS_CLOSED_ENUM(NSUInteger, MASBrowserBasedAuthenticationType) {
+
+    /**
+     *  Type which tells the SDK an SFSafariViewController should be used when the user invokes browser based authentication.
+     */
+    MASBrowserBasedAuthenticationTypeSafari,
+    /**
+     *  Type which tells the SDK an ASWebAuthenticationSession should be used when the user invokes browser based authentication.
+     */
+    MASBrowserBasedAuthenticationTypeWebSession API_AVAILABLE(ios(12.0), macCatalyst(13.0), macos(10.15), watchos(6.2)) API_UNAVAILABLE(tvos)
 };
 
 
